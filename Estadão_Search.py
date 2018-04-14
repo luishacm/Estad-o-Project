@@ -21,7 +21,7 @@ driver = webdriver.Firefox(profile)
 
 #making the login at the Estadão website so we can have tha images in high quality
 
-login = [line.rstrip('\n') for line in open("C:/Users/Luís/Desktop/PoliticaExternaNOVO/arquivos/login.txt")]
+login = [line.rstrip('\n') for line in open("C:/User/PATH TO THE TXT WITH THE LOGIN AND PASSWORD IN EACH LINE/login.txt")]
 username = login[0]
 password = login[1]
 driver.get("https://acesso.estadao.com.br/login")
@@ -32,19 +32,18 @@ driver.find_element_by_xpath('//input[@value="Entrar"]').click()
 #Opening the web navigator and the document where the links of the images will be stored
 
 x = 1
-txt = open("C:/Users/Luís/Desktop/PoliticaExternaNOVO/arquivos/linkdasimagens.txt","w")
-driver.get("http://acervo.estadao.com.br/procura/#!/mec/Acervo//spo/1/2010/2010//Primeira")
+txt = open("C:/User/PATH TO ANY EMPTY TXT /linkdasimagens.txt","w")
+driver.get("http://acervo.estadao.com.br/procura/#!/mec/Acervo//spo/1/2010/2010//Primeira") #example of search link of the website
 time.sleep(5)
 
 #Finding out how many pages there is in the website
 
-#page_number = driver.find_element_by_class_name("page-ultima-qtd").text
+page_number = driver.find_element_by_class_name("page-ultima-qtd").text
 
 #This will get all the selected links of the images from the website so later we can download the images.
 #This is a loop. It repeats itself a amount of time, in this case, at the amount of pages there in the search.
 
-#for i in range(int(page_number)):
-for i in range(2):
+for i in range(int(page_number)):
     try:
         links = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.LINK_TEXT, "LEIA ESTA EDIÇÃO")))
         references = [link.get_attribute("href") for link in links]    
@@ -66,7 +65,7 @@ txt.close()
 ##Preparing the variables
 
 time.sleep(1) 
-lines = [line.rstrip('\n') for line in open("C:/Users/Luís/Desktop/PoliticaExternaNOVO/arquivos/linkdasimagens.txt")]
+lines = [line.rstrip('\n') for line in open("C:/User/ PATH OF THE EMPTY TXT /linkdasimagens.txt")]
 x = 0
 
 ##Another loop, now with another function. It will get the list of links we made and open in the navigator one by one and download each image.
@@ -81,7 +80,7 @@ while True:
         u = u[:-20]
         img = driver.find_element_by_xpath("//img[@class='BRnoselect']")
         src = img.get_attribute('src')
-        with open(("C:/Users/Luís/Desktop/PoliticaExternaNOVO/Imagens/{}.jpg".format(u)), "wb") as f:
+        with open(("C:/Users/PATH WHERE YOU WANNA SAVE YOUR IMAGES/{}.jpg".format(u)), "wb") as f:
             f.write(requests.get(src).content)
         x += 1
         y=''
