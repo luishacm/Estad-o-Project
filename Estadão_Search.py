@@ -7,7 +7,6 @@ from selenium.webdriver.common.keys import Keys
 import time
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
-import urllib.request
 import re
 import requests
 
